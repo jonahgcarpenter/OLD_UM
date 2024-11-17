@@ -1,0 +1,36 @@
+{{ define "ProGamers" }}
+<!DOCTYPE html>
+<html lang = 'en'>
+<head>
+<title>2022 Top Earning ESports (host 8086)</title>
+</head>
+<body>
+	<center>
+		<h2>2022 Top Earning ESports (host 8086)</h2>
+		<table border=1>
+			<thread>
+			 <tr>
+			  <td>Name</td>
+			  <td>Alias</td>
+			  <td>Game</td>
+			  <td>PrizePool</td>
+			 </tr>
+			</thread>
+			
+			<tbody>
+			{{ range. }}
+			 <tr>
+			   <td>{{.Name}}</td>
+			   <td>{{.Alais}}</td>
+			   <td>{{.Game}}</td>
+			   <td>{{.PrizePool}}</td>
+			 </tr>
+			 {{end}}
+			</tbody>
+		</table>
+
+
+	</center>
+</body>
+</html>
+{{ end }}

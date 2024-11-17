@@ -1,0 +1,30 @@
+{{ define "chooseState2023.html" }}
+{{ template "header" }}
+  <form method="POST" action="listState2023.html">
+    <div class="row">
+    <label for="left-label" class="left inline">
+    <h2>Pick Your State</h2>
+    Choose a State by Order of Statehood:<select name="ID">
+     <option></option>
+     {{ range. }}
+      <option value='{{ .Num }}'>{{ .Num }}</option>
+      {{end}}
+       </select>
+      <p /><hr>&nbsp;&nbsp;&nbsp;<b>OR</b> &nbsp;&nbsp;&nbsp; fill in zero or more values below<hr> <p />
+      <p>State: <input type=text name="name"></p>
+      <p>Abbreviation: <input type=text name="abbreviation"></p>
+      <p>Capitol: <input type=text name="capitol"></p>
+      Flower:<select name="flower">
+      <option></option>
+      {{ range. }}
+      <option value='{{ .Flower }}'>{{ .Flower }}</option>  
+      {{end}}
+    </select>
+      <p>Start Year (Established): <input type=text name="startyear"></p>
+      <p>End Year (Established): <input type=text name="endyear"></p>
+    <input type="submit" name="submit" class="button tiny round" value="Find a State" />
+    </label>
+    </div>
+    </form>
+{{ template "footer" }}
+{{ end }}

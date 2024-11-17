@@ -1,0 +1,20 @@
+# Jonah Carpenter
+# Fall 2024 CSCI 444
+# Homework 3
+# Breweries in the US
+
+# Packages
+# Load necessary packages with pacman::p_load
+pacman::p_load(tidyverse, rvest, robotstxt, tidytext, xml2)
+
+# Check bot permissions for RateBeer
+paths_allowed("https://www.ratebeer.com/") 
+
+# Define the URL for Mississippi breweries
+mississippi_url <- "https://www.ratebeer.com/breweries/unitedstates/24/213/"
+
+# Read the webpage content
+page <- read_html(mississippi_url)
+
+# View the XML structure of the page
+page %>% xml2::xml_structure()

@@ -1,0 +1,57 @@
+# Load necessary libraries
+library(rvest)
+library(dplyr)
+library(stringr)
+library(ggplot2)
+
+# Step 1: Scrape data from IMDB top box office chart
+url <- 'https://www.imdb.com/chart/boxoffice' # Adjust the URL if necessary
+page <- read_html(url)
+
+# Step 2: Extract movie titles using CSS selectors
+titles <- page %>%
+  html_nodes(".titleColumn a") %>%
+  html_text()
+
+# Step 3: Extract weekend gross, gross, and weeks
+gross_data <- page %>%
+  html_nodes(".ratingColumn") %>%
+  html_text()
+
+# Clean up data (remove white spaces and format it)
+gross_data_clean <- str_squish(gross_data)
+
+# Extract weekend gross and total gross (assuming specific order in the data)
+weekend_gross <- gross_data_clean[seq(1, length(gross_data_clean), 2)]
+gross <- gross_data_clean[seq(2, length(gross_data_clean), 2)]
+
+# Clean up gross values, removing '$' and 'M' symbols
+weekend_gross_numeric <- as.numeric(str_replace_all(weekend_gross, "[$M]", ""))
+gross_numeric <- as.numeric(str_replace_all(gross, "[$M]", ""))
+
+# Step 4: Extract number of weeks data
+weeks <- page %>%
+  html_nodes(".weeksColumn") %>%
+  html_text() %>%
+  as.numeric()
+
+# Step 5: Create a tibble for the top grossing films
+topGrossingFilms <- tibble(
+  Title = titles,
+  Weekend_Gross = weekend_gross_numeric,
+  Gross = gross_numeric,
+  Number_of_weeks = weeks
+)
+
+# Step 6: Add a column for Average_Gross
+topGrossingFilms <- topGrossingFilms %>%
+  mutate(Average_Gross = Gross / Number_of_weeks) %>%
+  arrange(desc(Average_Gross))
+
+# Step 7: Save the tibble to a CSV file
+write.csv(topGrossingFilms, "data/top_grossing_films.csv", row.names = FALSE)
+
+# Step 8: Plot Average_Gross by Number_of_weeks
+ggplot(topGrossingFilms, aes(x = Number_of_weeks, y = Average_Gross)) +
+  geom_col() +
+  labs(title = "Average Gross by Number of Weeks", x = "Number of Weeks", y = "Average Gross")

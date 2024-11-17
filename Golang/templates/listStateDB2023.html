@@ -1,0 +1,34 @@
+{{ define "listStateDB2023.html" }}
+{{ template "header" }}
+<div class="row">
+    <center>
+        <h2>Here is/are your State(s)</h2>
+            <table border=1>
+                <thead>
+                    <tr>
+                        <td>State</td>
+                        <td>Capital</td>
+                        <td>Abbreviation</td>
+                        <td>Order of Statehood</td>
+                        <td>Established</td>
+                        <td>Flower</td>
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    {{ range. }}
+                    <tr>
+                        <td>{{ .Name }}</td>
+                        <td>{{ .Capital }}</td>
+                        <td>{{ .Abbr }}</td>
+                        <td>{{ .Num }}</td>
+                        <td>{{ .Est }}</td>
+                        <td>{{ .Flower }}</td>
+                    </tr>
+                    {{ end }}
+                </tbody>
+            </table>
+    </center>
+</div>
+{{ template "footer" }}
+{{ end }}

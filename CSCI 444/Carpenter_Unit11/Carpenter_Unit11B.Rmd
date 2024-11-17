@@ -1,0 +1,43 @@
+---
+title: "Carpenter_Unit 11B"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+```
+
+```{r load-libraries, echo=FALSE}
+library(dplyr)
+library(ggplot2)
+library(tidyverse)
+library(leaflet)
+library(htmltools)
+```
+
+```{r ms-schools}
+ms_universities <- tibble(
+  Name = c("Ole Miss", "State", "Southern"),
+  Mascot = c("Rebels", "Bulldogs", "Golden Eagles"),
+  Latitude = c(34.3662, 33.4577, 31.3299),
+  Longitude = c(-89.5380, -88.7942, -89.3335)
+)
+
+popups <- sprintf(
+  "<span style='color:blue; font-size:14px; font-weight:bold;'>%s</span><br />
+   <span style='color:blue; font-style:italic;'>%s</span>",
+  ms_universities$Name, ms_universities$Mascot
+)
+popups <- lapply(popups, htmltools::HTML)
+
+ms_universities %>%
+  leaflet(options = leafletOptions(zoomSnap = 0.1)) %>%
+  setView(lng = -89.3985, lat = 32.3547, zoom = 5.5) %>%
+  addTiles() %>%
+  addMarkers(
+    ~Longitude, ~Latitude,
+    label = ~Name,
+    popup = popups
+  )
+
+```

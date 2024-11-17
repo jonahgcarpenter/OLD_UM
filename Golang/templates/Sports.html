@@ -1,0 +1,32 @@
+{{ define "Sports" }}
+<!DOCTYPE html>
+<html lang = 'en'>
+<head>
+<title>Sports Leagues Championship Games</title>
+</head>
+<body>
+	<center>
+		<h2>Sports Championship Game</h2>
+		<table border=1>
+			<thread>
+			 <tr>
+			  <td>Sport</td>
+			  <td>Championship Game</td>
+			 </tr>
+			</thread>
+			
+			<tbody>
+			{{ range. }}
+			 <tr>
+			   <td>{{.Sport}}</td>
+			   <td>{{.Championship}}</td>
+			 </tr>
+			 {{end}}
+			</tbody>
+		</table>
+
+
+	</center>
+</body>
+</html>
+{{ end }}

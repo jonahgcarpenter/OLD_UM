@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Smart Homes Catalog">
+    <meta name="author" content="Jonah Carpenter">
+    <title>Smart Homes - Catalog</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="icon.png" type="image/png">
+    <style>
+        /* Hidden sections until clicked */
+        .sub-options {
+            display: none;
+            margin-left: 20px;
+        }
+
+        /* Display block for active sections */
+        .active {
+            display: block;
+        }
+
+        /* Styling for toggleable headings */
+        .toggle {
+            cursor: pointer;
+            color: purple;
+            text-decoration: underline;
+        }
+
+        /* Indented sections for better structure */
+        .indented-section {
+            margin-left: 20px;
+            display: flex;
+            justify-content: left;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        /* Ensure the full height for body */
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+
+        /* Flex layout for body and content */
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Style for the content section */
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+    </style>
+    
+</head>
+<body>
+
+    <!-- Header section -->
+    <header>
+        <h1>The Smart Home Catalog</h1>
+    </header>
+
+    <!-- Navigation bar linking to other pages -->
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="devices.html">Devices</a>
+        <a href="ecosystems.html">Ecosystems</a>
+        <a href="security.html">Security</a>
+    </nav>
+
+    <!-- Main content section -->
+    <div class="content">
+        <!-- Devices Section -->
+        <section class="indented-section">
+            <h2 class="toggle" onclick="toggleSection('devices')">Devices</h2>
+            <ul id="devices" class="sub-options">
+                <!-- Thermostats Subsection -->
+                <li class="toggle" onclick="toggleSection('thermostats')">
+                    <strong>Smart Thermostats</strong>
+                    <ul id="thermostats" class="sub-options">
+                        <li>Smart thermostats let you control your home's temperature remotely, create custom schedules, and track energy usage. They integrate with other devices like smart blinds to maintain an energy-efficient home effortlessly.</li>
+                    </ul>
+                </li>
+                <!-- Smart Lights Subsection -->
+                <li class="toggle" onclick="toggleSection('lights')">
+                    <strong>Smart Lights</strong>
+                    <ul id="lights" class="sub-options">
+                        <li>Smart lights offer remote control, security automation, and customizable lighting. Set the perfect mood with color and brightness adjustments or use pre-programmed scenes for various occasions like movie night or parties.</li>
+                    </ul>
+                </li>
+                <!-- Smart Appliances Subsection -->
+                <li class="toggle" onclick="toggleSection('appliances')">
+                    <strong>Smart Appliances</strong>
+                    <ul id="appliances" class="sub-options">
+                        <li>Smart appliances, including fridges, washing machines, ovens, and robot vacuums, allow you to manage your home with convenience. Preheat your oven on the way home, get laundry alerts, or schedule cleaning with a few taps.</li>
+                    </ul>
+                </li>
+                <!-- Smart Plugs Subsection -->
+                <li class="toggle" onclick="toggleSection('plugs')">
+                    <strong>Smart Plugs</strong>
+                    <ul id="plugs" class="sub-options">
+                        <li>Smart plugs let you transform any traditional device into a smart one. Automate schedules, monitor energy usage, and control appliances from your phone or via voice commands with ease.</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Ecosystems Section -->
+        <section class="indented-section">
+            <h2 class="toggle" onclick="toggleSection('ecosystems')">Ecosystems</h2>
+            <ul id="ecosystems" class="sub-options">
+                <!-- Google Home Subsection -->
+                <li class="toggle" onclick="toggleSection('googleHome')">
+                    <strong>Google Home</strong>
+                    <ul id="googleHome" class="sub-options">
+                        <li>Google Home seamlessly integrates with Google services like Maps and Calendar, making it easy to control devices with advanced voice commands. Google Nest products, such as thermostats and cameras, provide an all-in-one solution for smart living.</li>
+                    </ul>
+                </li>
+                <!-- Amazon Alexa Subsection -->
+                <li class="toggle" onclick="toggleSection('amazonAlexa')">
+                    <strong>Amazon Alexa</strong>
+                    <ul id="amazonAlexa" class="sub-options">
+                        <li>Amazon Alexa boasts extensive compatibility with thousands of smart devices. Alexa Routines enable complex automations, while Echo devices act as central hubs for controlling your entire smart home with your voice.</li>
+                    </ul>
+                </li>
+                <!-- Apple HomeKit Subsection -->
+                <li class="toggle" onclick="toggleSection('appleHomeKit')">
+                    <strong>Apple HomeKit</strong>
+                    <ul id="appleHomeKit" class="sub-options">
+                        <li>Apple HomeKit is the perfect choice for Apple users, offering tight integration with iOS devices. HomeKit provides strong security features and lets you automate daily routines with Siri, all from a single app.</li>
+                    </ul>
+                </li>
+                <!-- Home Assistant Subsection -->
+                <li class="toggle" onclick="toggleSection('homeAssistant')">
+                    <strong>Home Assistant</strong>
+                    <ul id="homeAssistant" class="sub-options">
+                        <li>Home Assistant is the ultimate DIY smart home solution, offering compatibility with thousands of devices and limitless customization. It requires a bit of technical knowledge but gives you complete control over automations and integrations with a wide range of third-party services and open-source tools.</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Security Section -->
+        <section class="indented-section">
+            <h2 class="toggle" onclick="toggleSection('security')">Security</h2>
+            <ul id="security" class="sub-options">
+                <!-- Smart Cameras Subsection -->
+                <li class="toggle" onclick="toggleSection('cameras')">
+                    <strong>Smart Cameras</strong>
+                    <ul id="cameras" class="sub-options">
+                        <li>Smart cameras offer real-time monitoring, motion detection, and cloud or local storage. They can integrate with other security devices, such as alarms and lights, for a comprehensive home security solution.</li>
+                    </ul>
+                </li>
+                <!-- Smart Locks Subsection -->
+                <li class="toggle" onclick="toggleSection('locks')">
+                    <strong>Smart Locks</strong>
+                    <ul id="locks" class="sub-options">
+                        <li>Smart locks provide keyless entry and remote control, allowing you to lock or unlock doors from your phone. Custom access codes and integration with security systems make them an essential part of a smart security setup.</li>
+                    </ul>
+                </li>
+                <!-- Smart Alarms Subsection -->
+                <li class="toggle" onclick="toggleSection('alarms')">
+                    <strong>Smart Alarms</strong>
+                    <ul id="alarms" class="sub-options">
+                        <li>Smart alarm systems can arm or disarm automatically based on your phone's location. They send real-time alerts when triggered and integrate with cameras and sensors to keep your home safe.</li>
+                    </ul>
+                </li>
+                <!-- Motion Sensors Subsection -->
+                <li class="toggle" onclick="toggleSection('sensors')">
+                    <strong>Motion Sensors</strong>
+                    <ul id="sensors" class="sub-options">
+                        <li>Motion sensors detect movement and trigger other actions, like turning on lights or activating alarms. They enhance home security and can also help save energy by automating lights in high-traffic areas.</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Cool Additions Section -->
+        <section class="indented-section">
+            <h2 class="toggle" onclick="toggleSection('additions')">Cool Additions</h2>
+            <ul id="additions" class="sub-options">
+                <!-- Voice Assistants Subsection -->
+                <li class="toggle" onclick="toggleSection('voiceAssistants')">
+                    <strong>Voice Assistants</strong>
+                    <ul id="voiceAssistants" class="sub-options">
+                        <li>Voice assistants like Alexa, Google Assistant, and Siri allow you to control your smart home hands-free. From playing music to adjusting the thermostat, voice commands simplify daily tasks and bring added convenience.</li>
+                    </ul>
+                </li>
+                <!-- Automated Routines Subsection -->
+                <li class="toggle" onclick="toggleSection('routines')">
+                    <strong>Automated Routines</strong>
+                    <ul id="routines" class="sub-options">
+                        <li>Automated routines let you schedule tasks such as turning on lights, adjusting the temperature, or locking the doors. Create routines based on time or location, and enjoy a seamlessly automated home experience.</li>
+                    </ul>
+                </li>
+                <!-- Energy Monitoring Subsection -->
+                <li class="toggle" onclick="toggleSection('energyMonitoring')">
+                    <strong>Energy Monitoring</strong>
+                    <ul id="energyMonitoring" class="sub-options">
+                        <li>Energy monitoring devices track your home's energy usage in real-time. Get alerts for energy spikes, analyze trends, and make adjustments to reduce costs and improve efficiency.</li>
+                    </ul>
+                </li>
+                <!-- Smart Entertainment Subsection -->
+                <li class="toggle" onclick="toggleSection('entertainment')">
+                    <strong>Smart Entertainment Systems</strong>
+                    <ul id="entertainment" class="sub-options">
+                        <li>Smart entertainment systems let you control your TV, speakers, and streaming devices with ease. Create a home theater experience by syncing lights and sound, or play music in multiple rooms with smart speakers.</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+    </div>
+
+    <!-- Footer section with project information -->
+    <footer>
+        <p>&copy; 2024 CSCI354 Project | Designed by Jonah Carpenter</p>
+    </footer>
+
+    <!-- JavaScript function to toggle sections -->
+    <script>
+        function toggleSection(sectionId) {
+            var section = document.getElementById(sectionId);
+            if (section.classList.contains('active')) {
+                section.classList.remove('active');
+            } else {
+                section.classList.add('active');
+            }
+        }
+    </script>
+  
+</body>
+</html>

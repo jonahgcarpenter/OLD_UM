@@ -1,0 +1,24 @@
+{{ define "createS23.html" }}
+  {{ template "header" }}
+  <form method="POST" action = "/add">
+	<div class="row">
+	<label for='left-label' class='left inline'>
+	<center>
+	<h2> Enter TV Show Information </h2>
+	<p>Title: <input type="text" name="name"></p>
+	<p>IMDB Rating: <input type="number" name="rating" min="0" max="10" step="0.1"></p>
+	<p>Starting Year: <input type="number" name="start" maxlength="4"></p>
+	<p>Ending Year: <input type="number" name="end" maxlength="4"></p>
+	GenreType:<select name="gID">
+		<option></option>
+		{{ range . }}
+		<option value="{{ .GenreID}}">{{ .GenreType }}</option>
+		{{ end }}
+	</select>
+	<input type="submit" name="submit" class="button tiny round" value="Add" />
+	</center>
+	</label>
+	</div>
+</form>
+  {{ template "footer" }}
+{{ end }}

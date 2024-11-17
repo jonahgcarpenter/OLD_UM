@@ -1,0 +1,95 @@
+# Load necessary packages
+pacman::p_load(tidyverse, leaflet, htmltools, shiny, shinyWidgets)
+
+# Define city data for each location
+cityData <- data.frame(
+  name = c("Oxford", "Inlet Beach", "Destin", "Charleston", "Nashville"),
+  address = c("719 N Lamar", "10711 E Hwy 30A", "10562 Emerald Coast Pkwy, Ste 169", "456 Meeting St", "5304 Charlotte Ave"),
+  city = c("Oxford", "Inlet Beach", "Destin", "Charleston", "Nashville"),
+  st = c("MS", "FL", "FL", "SC", "TN"),
+  zip = c("38655", "32461", "32550", "29403", "37209"),
+  phone = c("662.236.2666", "850.532.6952", "850.388.6894", "843.459.1800", "615.610.3403"),
+  long = c(-89.516107, -86.010989, -86.38869, -79.939229, -86.851889),
+  lat = c(34.375572, 30.280213, 30.383456, 32.795024, 36.152353)
+)
+
+# UI
+ui <- fluidPage(
+  titlePanel(
+    # Ensure "BBBLogo.png" is exactly in the "www" folder
+    img(src = "logo.png", height = "30%", width = "30%")
+  ),
+  sidebarLayout(
+    sidebarPanel(
+      awesomeRadio("states", "Select a State:", 
+                   choices = c("Mississippi" = "MS", "Florida" = "FL", "South Carolina" = "SC", "Tennessee" = "TN"), 
+                   selected = "MS"),
+      awesomeRadio("locations", "Select a Location:", choices = c("Choose" = ""))
+    ),
+    mainPanel(
+      leafletOutput("map")  # Ensure this matches the renderLeaflet ID in the server
+    )
+  )
+)
+
+# Server
+server <- function(input, output, session) {
+  observeEvent(input$states, {
+    if (input$states == "MS") {
+      updateAwesomeRadio(session, "locations", choices = c("Oxford" = "ox"))
+    } else if (input$states == "FL") {
+      updateAwesomeRadio(session, "locations", choices = c("Inlet Beach" = "inlet", "Destin" = "destin"))
+    } else if (input$states == "SC") {
+      updateAwesomeRadio(session, "locations", choices = c("Charleston" = "charleston"))
+    } else if (input$states == "TN") {
+      updateAwesomeRadio(session, "locations", choices = c("Nashville" = "nashville"))
+    }
+  })
+  
+  # Define leaflet map output
+  output$map <- renderLeaflet({
+    leaflet() %>% 
+      addTiles() %>% 
+      setView(lng = -89.516107, lat = 34.375572, zoom = 10) %>%  # Default to Oxford
+      leafletOptions(zoomSnap = 0.1)  # Set zoomSnap as specified
+  })
+  
+  observeEvent(input$locations, {
+    # Default coordinates and label
+    viewLong <- -89.516107  # Oxford default longitude
+    viewLat <- 34.375572    # Oxford default latitude
+    label <- "Select a location to view details."
+    
+    # Adjust map view and label based on selected location
+    if (input$locations == "ox") {
+      viewLong <- cityData$long[cityData$name == "Oxford"]
+      viewLat <- cityData$lat[cityData$name == "Oxford"]
+      label <- paste0("<b>Oxford Location</b><br>", cityData$address[1], "<br>", cityData$city[1], ", ", cityData$st[1], " ", cityData$zip[1], "<br>", cityData$phone[1])
+    } else if (input$locations == "inlet") {
+      viewLong <- cityData$long[cityData$name == "Inlet Beach"]
+      viewLat <- cityData$lat[cityData$name == "Inlet Beach"]
+      label <- paste0("<b>Inlet Beach Location</b><br>", cityData$address[2], "<br>", cityData$city[2], ", ", cityData$st[2], " ", cityData$zip[2], "<br>", cityData$phone[2])
+    } else if (input$locations == "destin") {
+      viewLong <- cityData$long[cityData$name == "Destin"]
+      viewLat <- cityData$lat[cityData$name == "Destin"]
+      label <- paste0("<b>Destin Location</b><br>", cityData$address[3], "<br>", cityData$city[3], ", ", cityData$st[3], " ", cityData$zip[3], "<br>", cityData$phone[3])
+    } else if (input$locations == "charleston") {
+      viewLong <- cityData$long[cityData$name == "Charleston"]
+      viewLat <- cityData$lat[cityData$name == "Charleston"]
+      label <- paste0("<b>Charleston Location</b><br>", cityData$address[4], "<br>", cityData$city[4], ", ", cityData$st[4], " ", cityData$zip[4], "<br>", cityData$phone[4])
+    } else if (input$locations == "nashville") {
+      viewLong <- cityData$long[cityData$name == "Nashville"]
+      viewLat <- cityData$lat[cityData$name == "Nashville"]
+      label <- paste0("<b>Nashville Location</b><br>", cityData$address[5], "<br>", cityData$city[5], ", ", cityData$st[5], " ", cityData$zip[5], "<br>", cityData$phone[5])
+    }
+    
+    # Update the map view and add marker with label and popup
+    leafletProxy("map") %>%
+      setView(lng = viewLong, lat = viewLat, zoom = 15) %>%
+      clearMarkers() %>%
+      addMarkers(lng = viewLong, lat = viewLat, label = label, popup = label)
+  })
+}
+
+# Run the app
+shinyApp(ui, server)

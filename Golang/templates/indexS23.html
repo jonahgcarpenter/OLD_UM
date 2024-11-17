@@ -1,0 +1,36 @@
+{{ define "indexS23.html" }}
+  {{ template "header" }}
+	<div class="row">
+	<center>
+	<h2> Top 100 TV Shows 2023 </h2>
+	<table border=0>
+     <thead>
+      <tr>
+		<td></td>
+		<td>Show</td>
+        <td>IMDB Rating</td>
+ 		<td>Seasons</td>
+		<td>Genres</td>
+		<td></td>
+     </tr>
+     </thead>
+
+    <tbody>
+		<tr>
+			{{ range. }}
+			<td><a style="color:red" href="deleteS23.html?id={{ .TvID }}" onclick="return confirm('Are you sure you want to delete?');"> X </a></td>
+			<td>{{ .Title }}</td>
+			<td>{{ .ImdbRating }}</td>
+			<td>{{ .Seasons }}</td>
+			<td>{{ .GenreType }}</td>
+			<td><a href="editS23.html?id={{ .TvID }}"> Edit </a></td>
+		</tr>
+		{{ end }}
+    </tbody>
+	</table>
+
+	<a href="createS23.html"> Add a TV show </a>
+	 </center>
+	</div>
+  {{ template "footer" }}
+{{ end }}

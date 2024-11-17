@@ -1,0 +1,33 @@
+{{ define "editS23.html" }}
+  {{ template "header" }}
+	<div class="row">
+	<label for='left-label' class='left inline'>
+	<center>
+	<h2> {{.Title}} Information </h2>
+	<form method="POST" action="update">
+		<!-- form fields go here -->
+	</form>
+	<div>
+		<label for="title">Title:</label>
+		<input type="text" name="title" id="title" value="{{.Title}}" />
+	</div>
+	<div>
+		<label for="imdb">IMDB:</label>
+		<input type="text" name="imdb" id="imdb" value="{{.IMDB}}" />
+	</div>
+	<input type="hidden" name="tvid" value="{{.TvID}}" />
+	<center>Seasons: {{ .Seasons }} </center><br />
+	<center>Genres:<br /> {{ .GenreType }} </center><br /><br />
+	<label for="genre">Genre:</label>
+<select name="genre" id="genre">
+  {{ range .GenreSlice }}
+    <option value="{{ .GenreID }}">{{ .GenreType }}</option>
+  {{ end }}
+</select>
+
+	
+	</center>
+	</label>
+	</div>
+  {{ template "footer" }}
+{{ end }}

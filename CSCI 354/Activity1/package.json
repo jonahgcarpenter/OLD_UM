@@ -1,0 +1,11 @@
+{
+  "name": "activity1",
+  "version": "1.0.0",
+  "description": "activity1 for 354",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "jonah carpenter",
+  "license": "ISC"
+}

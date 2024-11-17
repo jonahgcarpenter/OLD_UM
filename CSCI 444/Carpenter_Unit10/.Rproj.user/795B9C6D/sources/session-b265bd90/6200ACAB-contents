@@ -1,0 +1,33 @@
+# Wrangle the diabetes dataset further
+diabetes_data_state <- diabetes_data %>%
+  mutate(id = str_sub(id, 1, 2)) %>%
+  group_by(id) %>%
+  summarize(obesityMean = mean(obesityRate, na.rm = TRUE))
+
+# Wrangle the us_map dataset
+us_map_data <- map_data('state') %>%
+  rename(long = x, lat = y, id = fips)
+
+# Plot the map with obesityMean
+ggplot(us_map_data, aes(long, lat, group = group, fill = obesityMean)) +
+  geom_polygon(color = "gray") +
+  coord_equal() +
+  theme_map() +
+  scale_fill_gradient2(low = "beige", high = "red", mid = "orange", midpoint = median(us_map_data$obesityMean, na.rm = TRUE)) +
+  guides(fill = guide_legend(nrow = 1)) +
+  theme(legend.position = "bottom")
+
+# Create the centroid aggregate variable
+centroid_data <- us_map_data %>%
+  group_by(id) %>%
+  summarize(long = mean(long), lat = mean(lat), obesityMean = mean(obesityMean, na.rm = TRUE))
+
+# Add geom_text layer to display obesityMean
+ggplot(us_map_data, aes(long, lat, group = group, fill = obesityMean)) +
+  geom_polygon(color = "gray") +
+  geom_text(data = centroid_data, aes(long, lat, label = round(obesityMean, 1)), color = "black", size = 4) +
+  coord_equal() +
+  theme_map() +
+  scale_fill_gradient2(low = "beige", high = "red", mid = "orange", midpoint = median(centroid_data$obesityMean, na.rm = TRUE)) +
+  guides(fill = guide_legend(nrow = 1)) +
+  theme(legend.position = "bottom")

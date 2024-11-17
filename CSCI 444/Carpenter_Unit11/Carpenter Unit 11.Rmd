@@ -1,0 +1,63 @@
+---
+title: "UNIT 11 - A"
+author: "Jonah Carpenter"
+output: 
+  pdf_document:
+    toc: false
+    keep_tex: true
+  html_document: default
+date: "2024-10-28"
+---
+
+
+```{r load-libraries, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+library(tinytex)
+library(ggplot2)
+library(dplyr)
+```
+
+```{r load-college, include=FALSE}
+# Load and wrangle college data
+college <- read.csv("college.csv")
+college <- college %>%
+  mutate(control = as.factor(control)) %>%
+  filter(!is.na(sat_avg) & !is.na(tuition))
+```
+
+# US Colleges
+
+### SAT Average v. Tuition
+```{r scatterplot-college}
+# Scatterplot: SAT Average vs Tuition, colored by Tuition
+college %>%
+  ggplot() +
+  geom_point(mapping = aes(x=tuition,
+                           y=sat_avg, 
+                           color = tuition,
+                           #size = tuition,
+  ),
+  alpha = 0.25) +
+  scale_color_distiller(palette="Dark2") +
+  labs("SAT Average by Tuition",
+       x = "Tuition",
+       y = "SAT Average")
+```
+
+### College Tuition of Public v. Private Instituions
+```{r historgram-tuition}
+# Histogram of Tuition for Public vs Private Institutions
+college %>%
+  ggplot() +
+  geom_histogram(mapping = aes(x = tuition,
+                               fill = control))
+```
+
+### SAT Average of Public v. Private Instituions
+```{r historgram-sat}
+# Histogram of SAT Average for Public vs Private Institutions
+college %>%
+  ggplot() +
+  geom_histogram(mapping = aes(x = sat_avg,
+                               fill = control))
+```

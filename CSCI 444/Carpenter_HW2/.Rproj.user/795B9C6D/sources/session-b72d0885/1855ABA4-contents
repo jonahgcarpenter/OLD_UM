@@ -1,0 +1,353 @@
+# Jonah Carpenter
+# CSCI 444
+# Homework 2
+# Washington DC Bike Sharing Rentals
+
+library(tidyverse)
+library(rvest)
+library(robotstxt)
+library(lubridate)
+
+# Vector of month abbreviations
+m <- c("jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec")
+
+# Function to convert Unix timestamps to POSIXct, handling placeholder values
+convert_unix_to_date <- function(unix_time) {
+  # Replace 1701388800 with NA
+  unix_time <- ifelse(unix_time == "1701388800", NA, unix_time)
+  as.POSIXct(as.numeric(unix_time), origin = "1970-01-01", tz = "UTC")
+}
+
+# Code block for January
+url_jan <- "https://s3.amazonaws.com/capitalbikeshare-data/202301-capitalbikeshare-tripdata.zip"
+zip_file_jan <- tempfile(tmpdir = "temp_data", fileext = ".zip")
+download.file(url_jan, zip_file_jan, mode = "wb")
+unzip_dir_jan <- tempdir()
+unzip(zip_file_jan, exdir = unzip_dir_jan)
+csv_file_jan <- list.files(unzip_dir_jan, pattern = "*.csv$", full.names = TRUE)[1]
+bike_data_jan <- read_csv(csv_file_jan) %>%
+  mutate(
+    started_at = started_at,
+    ended_at = ended_at
+  )
+
+# Code block for February
+url_feb <- "https://s3.amazonaws.com/capitalbikeshare-data/202302-capitalbikeshare-tripdata.zip"
+zip_file_feb <- tempfile(tmpdir = "temp_data", fileext = ".zip")
+download.file(url_feb, zip_file_feb, mode = "wb")
+unzip_dir_feb <- tempdir()
+unzip(zip_file_feb, exdir = unzip_dir_feb)
+csv_file_feb <- list.files(unzip_dir_feb, pattern = "*.csv$", full.names = TRUE)[1]
+bike_data_feb <- read_csv(csv_file_feb) %>%
+  mutate(
+    started_at = started_at,
+    ended_at = ended_at
+  )
+
+# Code block for March
+url_mar <- "https://s3.amazonaws.com/capitalbikeshare-data/202303-capitalbikeshare-tripdata.zip"
+zip_file_mar <- tempfile(tmpdir = "temp_data", fileext = ".zip")
+download.file(url_mar, zip_file_mar, mode = "wb")
+unzip_dir_mar <- tempdir()
+unzip(zip_file_mar, exdir = unzip_dir_mar)
+csv_file_mar <- list.files(unzip_dir_mar, pattern = "*.csv$", full.names = TRUE)[1]
+bike_data_mar <- read_csv(csv_file_mar) %>%
+  mutate(
+    started_at = started_at,
+    ended_at = ended_at
+  )
+
+
+# Code block for April
+url_apr <- "https://s3.amazonaws.com/capitalbikeshare-data/202304-capitalbikeshare-tripdata.zip"
+zip_file_apr <- tempfile(tmpdir = "temp_data", fileext = ".zip")
+download.file(url_apr, zip_file_apr, mode = "wb")
+unzip_dir_apr <- tempdir()
+unzip(zip_file_apr, exdir = unzip_dir_apr)
+csv_file_apr <- list.files(unzip_dir_apr, pattern = "*.csv$", full.names = TRUE)[1]
+bike_data_apr <- read_csv(csv_file_apr) %>%
+  mutate(
+    started_at = started_at,
+    ended_at = ended_at
+  )
+
+# Code block for May
+url_may <- "https://s3.amazonaws.com/capitalbikeshare-data/202305-capitalbikeshare-tripdata.zip"
+zip_file_may <- tempfile(tmpdir = "temp_data", fileext = ".zip")
+download.file(url_may, zip_file_may, mode = "wb")
+unzip_dir_may <- tempdir()
+unzip(zip_file_may, exdir = unzip_dir_may)
+csv_file_may <- list.files(unzip_dir_may, pattern = "*.csv$", full.names = TRUE)[1]
+bike_data_may <- read_csv(csv_file_may) %>%
+  mutate(
+    started_at = started_at,
+    ended_at = ended_at
+  )
+
+# Code block for June
+url_jun <- "https://s3.amazonaws.com/capitalbikeshare-data/202306-capitalbikeshare-tripdata.zip"
+zip_file_jun <- tempfile(tmpdir = "temp_data", fileext = ".zip")
+download.file(url_jun, zip_file_jun, mode = "wb")
+unzip_dir_jun <- tempdir()
+unzip(zip_file_jun, exdir = unzip_dir_jun)
+csv_file_jun <- list.files(unzip_dir_jun, pattern = "*.csv$", full.names = TRUE)[1]
+bike_data_jun <- read_csv(csv_file_jun) %>%
+  mutate(
+    started_at = started_at,
+    ended_at = ended_at
+  )
+
+# Code block for July
+url_jul <- "https://s3.amazonaws.com/capitalbikeshare-data/202307-capitalbikeshare-tripdata.zip"
+zip_file_jul <- tempfile(tmpdir = "temp_data", fileext = ".zip")
+download.file(url_jul, zip_file_jul, mode = "wb")
+unzip_dir_jul <- tempdir()
+unzip(zip_file_jul, exdir = unzip_dir_jul)
+csv_file_jul <- list.files(unzip_dir_jul, pattern = "*.csv$", full.names = TRUE)[1]
+bike_data_jul <- read_csv(csv_file_jul) %>%
+  mutate(
+    started_at = started_at,
+    ended_at = ended_at
+  )
+
+# Code block for August
+url_aug <- "https://s3.amazonaws.com/capitalbikeshare-data/202308-capitalbikeshare-tripdata.zip"
+zip_file_aug <- tempfile(tmpdir = "temp_data", fileext = ".zip")
+download.file(url_aug, zip_file_aug, mode = "wb")
+unzip_dir_aug <- tempdir()
+unzip(zip_file_aug, exdir = unzip_dir_aug)
+csv_file_aug <- list.files(unzip_dir_aug, pattern = "*.csv$", full.names = TRUE)[1]
+bike_data_aug <- read_csv(csv_file_aug) %>%
+  mutate(
+    started_at = started_at,
+    ended_at = ended_at
+  )
+
+# Code block for September
+url_sep <- "https://s3.amazonaws.com/capitalbikeshare-data/202309-capitalbikeshare-tripdata.zip"
+zip_file_sep <- tempfile(tmpdir = "temp_data", fileext = ".zip")
+download.file(url_sep, zip_file_sep, mode = "wb")
+unzip_dir_sep <- tempdir()
+unzip(zip_file_sep, exdir = unzip_dir_sep)
+csv_file_sep <- list.files(unzip_dir_sep, pattern = "*.csv$", full.names = TRUE)[1]
+bike_data_sep <- read_csv(csv_file_sep) %>%
+  mutate(
+    started_at = started_at,
+    ended_at = ended_at
+  )
+
+# Code block for October
+url_oct <- "https://s3.amazonaws.com/capitalbikeshare-data/202310-capitalbikeshare-tripdata.zip"
+zip_file_oct <- tempfile(tmpdir = "temp_data", fileext = ".zip")
+download.file(url_oct, zip_file_oct, mode = "wb")
+unzip_dir_oct <- tempdir()
+unzip(zip_file_oct, exdir = unzip_dir_oct)
+csv_file_oct <- list.files(unzip_dir_oct, pattern = "*.csv$", full.names = TRUE)[1]
+bike_data_oct <- read_csv(csv_file_oct) %>%
+  mutate(
+    started_at = started_at,
+    ended_at = ended_at
+  )
+
+# Code block for November
+url_nov <- "https://s3.amazonaws.com/capitalbikeshare-data/202311-capitalbikeshare-tripdata.zip"
+zip_file_nov <- tempfile(tmpdir = "temp_data", fileext = ".zip")
+download.file(url_nov, zip_file_nov, mode = "wb")
+unzip_dir_nov <- tempdir()
+unzip(zip_file_nov, exdir = unzip_dir_nov)
+csv_file_nov <- list.files(unzip_dir_nov, pattern = "*.csv$", full.names = TRUE)[1]
+bike_data_nov <- read_csv(csv_file_nov) %>%
+  mutate(
+    started_at = started_at,
+    ended_at = ended_at
+  )
+
+# Code block for December
+url_dec <- "https://s3.amazonaws.com/capitalbikeshare-data/202312-capitalbikeshare-tripdata.zip"
+zip_file_dec <- tempfile(tmpdir = "temp_data", fileext = ".zip")
+download.file(url_dec, zip_file_dec, mode = "wb")
+unzip_dir_dec <- tempdir()
+unzip(zip_file_dec, exdir = unzip_dir_dec)
+csv_file_dec <- list.files(unzip_dir_dec, pattern = "*.csv$", full.names = TRUE)[1]
+bike_data_dec <- read_csv(csv_file_dec) %>%
+  mutate(
+    started_at = started_at,
+    ended_at = ended_at
+  )
+
+# Combine all months into a single dataset
+bike_data_combined <- bind_rows(
+  bike_data_jan, bike_data_feb, bike_data_mar, bike_data_apr, 
+  bike_data_may, bike_data_jun, bike_data_jul, bike_data_aug, 
+  bike_data_sep, bike_data_oct, bike_data_nov, bike_data_dec
+)
+
+# Write the combined dataset to a CSV file
+write_csv(bike_data_combined, "data/bikes_2023_combined.csv")
+
+
+# Wrangling the bikes data
+bikes <- bikes %>%
+  filter(!is.na(started_at)) %>%
+  mutate(
+    started_at = as.POSIXct(as.numeric(started_at), origin = "1970-01-01", tz = "UTC"),
+    ended_at = as.POSIXct(as.numeric(ended_at), origin = "1970-01-01", tz = "UTC"),
+    month = month(started_at, label = TRUE, abbr = TRUE),
+    Season = case_when(
+      month(started_at) %in% c(12, 1, 2) ~ "Winter",
+      month(started_at) %in% c(3, 4, 5) ~ "Spring",
+      month(started_at) %in% c(6, 7, 8) ~ "Summer",
+      month(started_at) %in% c(9, 10, 11) ~ "Fall"
+    ),
+    Membership = case_when(
+      member_casual == "member" ~ "Member",
+      member_casual == "casual" ~ "Non-Member"
+    ),
+    Date = as.Date(started_at)
+  )
+
+write_csv(bikes, "data/bikes_2023.csv")
+
+# Scrape weather data
+base_url <- "https://i-weather.com/weather/washington/history/monthly-history/?gid=4140963&station=19064&month="
+date_2023 <- c()
+min_temp_2023 <- c()
+max_temp_2023 <- c()
+rain_2023 <- c()
+
+for (i in 1:12) {
+  url <- paste0(base_url, i, "&year=2023&language=english&country=us-united-states")
+  html_page <- read_html(url)
+  
+  date <- html_page %>% 
+    html_nodes("table tbody tr td:nth-child(1) > a") %>% 
+    html_text() %>% 
+    trimws()
+  
+  min_temp <- html_page %>% 
+    html_nodes("table tbody tr td:nth-child(2)") %>% 
+    html_text() %>% 
+    parse_number()
+  
+  max_temp <- html_page %>% 
+    html_nodes("table tbody tr td:nth-child(3)") %>% 
+    html_text() %>% 
+    parse_number()
+  
+  rain <- html_page %>% 
+    html_nodes("table tbody tr td:nth-child(5)") %>% 
+    html_text() %>% 
+    parse_number()
+  
+  max_length <- min(length(date), length(min_temp), length(max_temp), length(rain))
+  date <- date[1:max_length]
+  min_temp <- min_temp[1:max_length]
+  max_temp <- max_temp[1:max_length]
+  rain <- rain[1:max_length]
+  
+  date_2023 <- c(date_2023, date)
+  min_temp_2023 <- c(min_temp_2023, min_temp)
+  max_temp_2023 <- c(max_temp_2023, max_temp)
+  rain_2023 <- c(rain_2023, rain)
+}
+
+# Handling missing weather data
+max_temp_2023[is.na(max_temp_2023)] <- 26
+rain_2023[is.na(rain_2023)] <- 0
+date_2023 <- as.Date(date_2023, format = "%m/%d/%Y")
+valid_indices <- !is.na(date_2023)
+
+weather <- data.frame(
+  Date = date_2023[valid_indices],
+  min_temp = min_temp_2023[valid_indices],
+  max_temp = max_temp_2023[valid_indices],
+  rain = rain_2023[valid_indices]
+)
+
+weather <- weather %>%
+  mutate(
+    Date = as_date(Date),
+    Temperature = (max_temp * 9/5) + 32,  
+    Rain = rain / 25.4
+  )
+
+write_csv(weather, "data/weather_2023.csv")
+
+bikes <- read_csv("data/bikes_2023.csv")
+weather <- read_csv("data/weather_2023.csv")
+
+# VIZ3
+bike_count <- bikes %>%
+  group_by(Date) %>%
+  summarize(Bike_Rentals = n())
+
+bike_count_merge <- left_join(bike_count, weather, by = "Date")
+
+ggplot(bike_count_merge, aes(x = Date, y = Bike_Rentals, color = Temperature)) +
+  geom_point() +
+  labs(title = "Bike Rentals by Date (with Temperature)", 
+       x = "Date", 
+       y = "Bike Rentals") +
+  theme_minimal()
+
+# VIZ4
+bike_membership <- bikes %>%
+  group_by(Date, member_casual) %>%
+  summarize(Bike_Rentals = n())
+
+bike_membership_merge <- left_join(bike_membership, weather, by = "Date")
+
+ggplot(bike_membership_merge, aes(x = Date, y = Bike_Rentals, color = Temperature)) +
+  geom_point() +
+  facet_wrap(~ member_casual) +
+  labs(title = "Bike Rentals by Date and Membership (with Temperature)", 
+       x = "Date", 
+       y = "Bike Rentals") +
+  theme_minimal()
+
+# VIZ5
+bike_season <- bikes %>%
+  group_by(Season, member_casual) %>%
+  summarize(Bike_Rentals = n())
+
+ggplot(bike_season, aes(x = Season, y = Bike_Rentals, fill = member_casual)) +
+  geom_col(position = "dodge") +
+  labs(title = "Bike Rentals by Season: Members vs Non-Members", 
+       x = "Season", 
+       y = "Bike Rentals") +
+  theme_minimal()
+
+# VIZ6
+bike_monthly <- bikes %>%
+  group_by(Date, member_casual) %>%
+  summarize(Bike_Rentals = n()) %>%
+  mutate(Month = month(Date, label = TRUE, abbr = TRUE))
+
+ggplot(bike_monthly, aes(x = Date, y = Bike_Rentals, fill = member_casual)) +
+  geom_bar(stat = "identity", position = "dodge") +  
+  facet_wrap(~ Month, scales = "free_y", nrow = 4, ncol = 3) +  
+  labs(title = "Bike Rentals by Month: Members vs Non-Members", 
+       x = "Date", 
+       y = "Bike Rentals") +
+  theme_minimal()
+
+# VIZ7
+bike_type <- bikes %>%
+  group_by(Date = as.Date(started_at), Bike_Type = rideable_type) %>%
+  summarize(Bike_Rentals = n())
+
+bike_type_merge <- left_join(bike_type, weather, by = "Date")
+
+bike_type_merge <- bike_type_merge %>%
+  mutate(rain = ifelse(is.na(rain), 0, rain))
+
+ggplot(bike_type_merge, aes(x = Date)) +
+  geom_point(aes(y = Bike_Rentals, color = Bike_Type), size = 1.5) +
+  geom_line(aes(y = rain * 5000), color = "blue", linetype = "dashed") +
+  labs(title = "Bike Rentals by Type of Bike and Rainfall", 
+       x = "Date", 
+       y = "Bike Rentals") +
+  scale_y_continuous(
+    sec.axis = sec_axis(~ . / 5000, name = "Rainfall (mm)")
+  ) +
+  theme_minimal()

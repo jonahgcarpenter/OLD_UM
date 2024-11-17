@@ -1,0 +1,41 @@
+ALTER TABLE TV_GENRES_S23 DROP FOREIGN KEY TV_Title;
+ALTER TABLE TV_GENRES_S23 DROP FOREIGN KEY GENRE_Name;
+
+DROP TABLE IF EXISTS TV_S23, GENRES_S23, TV_GENRES_S23;
+-- tables
+-- Table: TV_S23
+CREATE TABLE TV_S23 (
+    tvID int auto_increment NOT NULL,
+    title varchar(100) NOT NULL,
+    imdbRating double NULL,
+    start int NULL,
+	end int NULL,
+    PRIMARY KEY (tvID)
+);
+
+-- Table: GENRES_S23
+CREATE TABLE GENRES_S23 (
+    genreID int NOT NULL,
+    name varchar(50) NOT NULL,
+    PRIMARY KEY (genreID)
+);
+
+
+-- Table: TV_GENRES_S23
+CREATE TABLE TV_GENRES_S23 (
+	tvID int NOT NULL,
+    genreID int NOT NULL,
+    PRIMARY KEY (tvID, genreID)
+);
+
+
+
+-- foreign keys
+ ALTER TABLE TV_GENRES_S23 ADD CONSTRAINT TV_Title FOREIGN KEY (tvID)
+     REFERENCES TV_S23 (tvID) ON DELETE CASCADE;
+
+ ALTER TABLE TV_GENRES_S23 ADD CONSTRAINT GENRE_Name FOREIGN KEY (genreID)
+    REFERENCES GENRES_S23 (genreID) ON DELETE CASCADE;
+
+-- End of file.
+

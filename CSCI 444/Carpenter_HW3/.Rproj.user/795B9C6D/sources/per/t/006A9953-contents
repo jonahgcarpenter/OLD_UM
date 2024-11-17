@@ -1,0 +1,44 @@
+# Jonah Carpenter
+# Fall 24 CSCI 444
+# Homework 3
+# Breweries in the US
+
+# Load necessary libraries
+pacman::p_load(tidyverse, rvest, robotstxt, xml2, stringr)
+
+# Check if scraping is allowed
+paths_allowed("https://www.ratebeer.com/")
+
+# Define the URL for Mississippi breweries
+url <- "https://www.ratebeer.com/breweries/unitedstates/24/213/"
+page <- read_html(url)
+
+# Test extraction for 'name'
+names <- page %>%
+  xml_find_all("//a[contains(@href, '/brewers/')]") %>%
+  xml_text(trim = TRUE)
+print(names)  # Check the extracted names
+
+# Test extraction for 'city'
+cities <- page %>%
+  xml_find_all("//a[@class='filter']") %>%
+  xml_text(trim = TRUE)
+print(cities)  # Check the extracted cities
+
+# Test extraction for 'beerCount'
+beer_counts <- page %>%
+  xml_find_all("//td[i[@style='color:#ccc;']]") %>%  # Find the <td> containing the <i> tag with beer count
+  xml_text(trim = TRUE) %>%
+  str_trim() %>%  # Trim leading/trailing whitespace
+  str_remove_all("[^0-9]") %>%  # Remove non-numeric characters
+  as.numeric()
+print(beer_counts)
+
+# Test extraction for 'url'
+urls <- page %>%
+  xml_find_all("//a[contains(@href, '/brewers/')]") %>%
+  xml_attr("href") %>%
+  paste0("https://www.ratebeer.com", .)
+print(urls)  # Check the extracted URLs
+
+
